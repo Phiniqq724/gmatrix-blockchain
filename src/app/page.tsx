@@ -1,9 +1,11 @@
 "use client";
 import { useState } from "react";
-import { makeAzleActor } from "../service/actor";
-import { _SERVICE as AZLE } from "@/config/declarations/dfx_generated/azle.did";
+// import { makeAzleActor } from "../service/actor";
+// import { _SERVICE as AZLE } from "@/config/declarations/dfx_generated/azle.did";
+import { redirect } from "next/navigation";
 
 export default function Home() {
+  redirect("/frontend");
   const [message, setMessage] = useState<number>();
   const [isLoading, setLoading] = useState<boolean>(false);
 
