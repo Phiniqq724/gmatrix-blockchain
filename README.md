@@ -11,11 +11,11 @@ npm install
 #### yarn Install
 
 ```sh
-npm intall --global yarn
+npm install --global yarn
 ```
 
 ```sh
-yarn intall
+yarn install
 ```
 
 #### Run Development
