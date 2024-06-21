@@ -10,18 +10,34 @@ export const metadata: Metadata = {
   description: "Build Library System with Blockchain Technology",
 };
 
-const neoteric = localFont({
+const openSauce = localFont({
   src: [
     {
-      path: "../../public/fonts/Neoteric-32A8.ttf",
-      weight: "normal",
+      path: "../../public/fonts/OpenSauceSans-ExtraBold.ttf",
+      weight: "900",
     },
     {
-      path: "../../public/fonts/NeotericBold-xq1q.ttf",
-      weight: "bold",
+      path: "../../public/fonts/OpenSauceSans-Bold.ttf",
+      weight: "800",
+    },
+    {
+      path: "../../public/fonts/OpenSauceSans-SemiBold.ttf",
+      weight: "700",
+    },
+    {
+      path: "../../public/fonts/OpenSauceSans-Medium.ttf",
+      weight: "600",
+    },
+    {
+      path: "../../public/fonts/OpenSauceSans-Regular.ttf",
+      weight: "500",
+    },
+    {
+      path: "../../public/fonts/OpenSauceSans-Light.ttf",
+      weight: "400",
     },
   ],
-  variable: "--font-neoteric",
+  variable: "--font-open_sauce",
 });
 
 export default function RootLayout({
@@ -31,7 +47,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${open_sans.className} ${neoteric.variable}`}>{children}</body>
+      <body className={`${open_sans.className} ${openSauce.variable}`}>{children}</body>
     </html>
   );
 }

@@ -6,16 +6,27 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "start_replica": " dfx start --clean --background --host 127.0.0.1:8080",
+    "deploy": "bash scripts/deploy_frontend_canister.sh  local",
+    "install:all": "bash scripts/install.sh"
   },
   "dependencies": {
+    "@dfinity/agent": "^1.4.0",
+    "@dfinity/auth-client": "^1.4.0",
+    "@dfinity/candid": "^1.4.0",
+    "@dfinity/principal": "^1.4.0",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@next/font": "^14.2.4",
+    "azle": "^0.22.0",
+    "dfx": "^0.98.0",
     "next": "14.2.4",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
-    "@types/node": "^20",
+    "@types/node": "^20.14.7",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
