@@ -8,6 +8,16 @@
 npm install
 ```
 
+#### yarn Install
+
+```sh
+npm intall --global yarn
+```
+
+```sh
+yarn intall
+```
+
 #### Run Development
 
 ```sh
