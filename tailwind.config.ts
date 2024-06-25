@@ -11,6 +11,9 @@ const config: Config = {
       fontFamily: {
         neoteric: ["var(--font-open_sauce)"],
       },
+      colors: {
+        brand: "#4340DA",
+      },
     },
   },
   plugins: [],
