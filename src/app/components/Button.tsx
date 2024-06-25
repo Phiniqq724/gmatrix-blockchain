@@ -50,7 +50,7 @@ export function FormButton({ className, variant, children, type, disabled, onCli
         className={`group inline-flex items-center gap-1 rounded-[8px] border-2 border-[#4340DA] bg-[#4340DA] px-7 py-4 text-white transition duration-300 font-medium hover:bg-white hover:text-[#4340DA] sm:py-2 ${className}`}
         disabled={disabled}
       >
-        {children}
+        <p className="mx-auto">{children}</p>
       </button>
     );
   }
