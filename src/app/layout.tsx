@@ -49,7 +49,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${open_sans.className} ${openSauce.variable}`}>
+      <body className={`${open_sans.className} ${openSauce.variable} bg-sky-100`}>
         <AdminDisablePathName />
 
         {children}
