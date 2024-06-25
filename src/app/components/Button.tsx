@@ -3,7 +3,7 @@ import { MouseEventHandler, ReactNode } from "react";
 
 interface ButtonProps {
   className?: string;
-  variant?: "blue" | "white";
+  variant?: "blue" | "white" | "red";
   withArrow?: boolean;
   children?: ReactNode;
 }
@@ -14,13 +14,20 @@ interface LinkButtonProps extends ButtonProps {
 
 export function LinkButton({ className, variant, children, href }: LinkButtonProps) {
   const blueButton = variant === "blue";
+  const redbutton = variant === "red";
 
   if (blueButton) {
     return (
       <Link
         href={href}
-        className={`group inline-flex items-center gap-1 rounded-[8px] border-2 border-[#4340DA] bg-[#4340DA] px-7 py-4 text-white transition duration-300 font-medium hover:bg-white hover:text-[#4340DA] sm:py-2 ${className}`}
+        className={`group inline-flex items-center gap-1 rounded-[8px] border-2 border-[#4340DA] bg-[#4340DA] px-7 py-4 text-white transition duration-300 font-medium hover:bg-transparent hover:text-[#4340DA] sm:py-2 ${className}`}
       >
+        {children}
+      </Link>
+    );
+  } else if (redbutton) {
+    return (
+      <Link href={href} className={`group inline-flex items-center gap-1 rounded-[8px] border-2 border-red-500 bg-red-500 px-7 py-4 text-white transition duration-300 font-medium hover:bg-red-600 sm:py-2 ${className}`}>
         {children}
       </Link>
     );
@@ -47,7 +54,7 @@ export function FormButton({ className, variant, children, type, disabled, onCli
       <button
         onClick={onClick}
         type={type}
-        className={`group inline-flex items-center gap-1 rounded-[8px] border-2 border-[#4340DA] bg-[#4340DA] px-7 py-4 text-white transition duration-300 font-medium hover:bg-white hover:text-[#4340DA] sm:py-2 ${className}`}
+        className={`group inline-flex items-center gap-1 rounded-[8px] border-2 border-[#4340DA] bg-[#4340DA] px-7 py-4 text-white transition duration-300 font-medium hover:bg-transparent hover:text-[#4340DA] sm:py-2 ${className}`}
         disabled={disabled}
       >
         <p className="mx-auto">{children}</p>
