@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import localFont from "@next/font/local";
-import Sidebar from "./components/Sidebar";
+import { UserSidebar } from "./components/Sidebar";
+import { AdminDisablePathName } from "@/lib/DisablePathName";
 
 const open_sans = Open_Sans({ subsets: ["latin"] });
 
@@ -49,7 +50,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${open_sans.className} ${openSauce.variable}`}>
-        <Sidebar />
+        <AdminDisablePathName />
+
         {children}
       </body>
     </html>
