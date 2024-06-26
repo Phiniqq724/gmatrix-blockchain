@@ -69,16 +69,16 @@ export default function UserData() {
       <div className="w-full flex mt-12 gap-x-4">
         <div className="inset-2 flex max-w-sm w-full justify-between rounded-md bg-transparent p-3 shadow-sm border border-[#4340DA]">
           <div className="block">
-            <p className="text-base font-normal text-gray-800 mb-2">Users</p>
             <p className="text-5xl font-medium tracking-wide text-gray-800 mb-1">{user.length}</p>
+            <p className="text-base font-normal text-gray-800 mb-2">Users</p>
             <p className="relative bottom-0 left-0 mt-10 font-inter text-xl font-semibold text-black">Total User</p>
           </div>
           <div className=" relative right-0 top-0"></div>
         </div>
         <div className="inset-2 flex max-w-sm w-full justify-between rounded-md bg-transparent p-3 shadow-sm border border-[#4340DA]">
           <div className="block">
-            <p className="text-base font-normal text-gray-800 mb-2">Users</p>
             <p className="text-5xl font-medium tracking-wide text-gray-800 mb-1">{userStatus.length}</p>
+            <p className="text-base font-normal text-gray-800 mb-2">Users</p>
             <p className="relative bottom-0 left-0 mt-10 font-inter text-xl font-semibold text-black">Authenticate User</p>
           </div>
           <div className=" relative right-0 top-0"></div>
