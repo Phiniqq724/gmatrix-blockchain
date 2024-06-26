@@ -12,6 +12,11 @@ import Flashimage from "@/../public/assets/flash.png";
 import Suicidesquad from "@/../public/assets/suicidesquad.png";
 import titans from "@/../public/assets/titans.png";
 import harleyquinn from "@/../public/assets/harleyquinn.png";
+import Atomichabits from "@/../public/assets/AtomicHabits.jpg";
+import bookofbill from "@/../public/assets/bookofbill.jpg";
+import jujutsukaisen from "@/../public/assets/JujutsuKaisen.jpg";
+import onepiece from "@/../public/assets/onepiece.jpg";
+import youarehere from "@/../public/assets/youarehere.jpg";
 
 const books = [
   {
@@ -33,6 +38,31 @@ const books = [
     src: harleyquinn,
     title: "Harley Quinn",
     author: "Harley Quinn",
+  },
+  {
+    src: onepiece,
+    title: "One Piece",
+    author: "Oda",
+  },
+  {
+    src: jujutsukaisen,
+    title: "Jujutsu Kaisen Vol 1",
+    author: "Gege Akutami",
+  },
+  {
+    src: Atomichabits,
+    title: "Atomic Habits",
+    author: "James Clear",
+  },
+  {
+    src: bookofbill,
+    title: "Book Of Bill",
+    author: "Alex Hirsch",
+  },
+  {
+    src: youarehere,
+    title: "You are Here",
+    author: "David Nicholls",
   },
 ];
 

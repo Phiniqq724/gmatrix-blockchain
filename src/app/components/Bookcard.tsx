@@ -27,7 +27,13 @@ export default function BookCard({
   return (
     <main className={className}>
       <div>
-        <Image src={src} alt="image" />
+        <Image
+          src={src}
+          alt="image"
+          width={172}
+          height={196}
+          className="rounded-lg"
+        />
       </div>
       <div className="font-semibold text-blue-400 text-center text-xl">
         {title}
