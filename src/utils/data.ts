@@ -237,3 +237,35 @@ export const book: BookDataProps[] = [
     update_at: new Date(),
   },
 ];
+
+export interface userProops {
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+  status: string;
+}
+
+export const user: userProops[] = [
+  {
+    id: 1,
+    name: "Naufal Nabil Ramadhan",
+    username: "user.naufalnr",
+    email: "naufalnr@gmail.com",
+    status: "Authenticate",
+  },
+  {
+    id: 2,
+    name: "Fahrell Sandy",
+    username: "user.phiniqq",
+    email: "phiniqq@gmail.com",
+    status: "Onauthenticate",
+  },
+  {
+    id: 3,
+    name: "Haza Nasrullah",
+    username: "user.hazz",
+    email: "hazz@gmail.com",
+    status: "Onauthenticate",
+  },
+];
