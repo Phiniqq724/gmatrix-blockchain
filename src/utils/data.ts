@@ -11,6 +11,7 @@ import onepiece from "@/../public/assets/onepiece.jpg";
 import youarehere from "@/../public/assets/youarehere.jpg";
 import BatmanImage from "@/../public/assets/batman.png";
 import Flashimage from "@/../public/assets/flash.png";
+
 export interface mainBookDataProops {
   judul_buku: string;
   penerbit: string;
@@ -25,7 +26,7 @@ export interface BookDataProps extends mainBookDataProops {
   deskripsi: string;
   imgUrl: StaticImageData | undefined | string | StaticImport | ReactElement | any;
   borrowed_by: string;
-  time_remain: string;
+  time_remain: Date;
   create_at: Date;
   update_at: Date;
 }
@@ -42,7 +43,7 @@ export const book: BookDataProps[] = [
     cover: Suicidesquad,
     imgUrl: Suicidesquad,
     borrowed_by: "Muhammad Zuhair Zuhdi",
-    time_remain: "2024-07-15T12:17:00",
+    time_remain: new Date("2024-07-15T12:17:00"),
     create_at: new Date(),
     update_at: new Date(),
   },
@@ -57,7 +58,7 @@ export const book: BookDataProps[] = [
     cover: Suicidesquad,
     imgUrl: Suicidesquad,
     borrowed_by: "Naufal Nabil R",
-    time_remain: "2024-08-16T07:30:00",
+    time_remain: new Date("2024-08-16T07:30:00"),
     create_at: new Date(),
     update_at: new Date(),
   },
@@ -72,7 +73,7 @@ export const book: BookDataProps[] = [
     cover: titans,
     imgUrl: titans,
     borrowed_by: "Haza Nasrullah",
-    time_remain: "2024-07-28T09:56:00",
+    time_remain: new Date("2024-07-28T09:56:00"),
     create_at: new Date(),
     update_at: new Date(),
   },
@@ -87,7 +88,7 @@ export const book: BookDataProps[] = [
     cover: Suicidesquad,
     imgUrl: Suicidesquad,
     borrowed_by: "",
-    time_remain: "",
+    time_remain: new Date("2024-07-15T12:17:00"),
     create_at: new Date(),
     update_at: new Date(),
   },
@@ -102,7 +103,7 @@ export const book: BookDataProps[] = [
     cover: Flashimage,
     imgUrl: Flashimage,
     borrowed_by: "",
-    time_remain: "",
+    time_remain: new Date("2024-08-16T07:30:00"),
     create_at: new Date(),
     update_at: new Date(),
   },
@@ -117,7 +118,7 @@ export const book: BookDataProps[] = [
     cover: titans,
     imgUrl: titans,
     borrowed_by: "",
-    time_remain: "",
+    time_remain: new Date("2024-07-20T10:45:00"),
     create_at: new Date(),
     update_at: new Date(),
   },
@@ -132,7 +133,7 @@ export const book: BookDataProps[] = [
     cover: harleyquinn,
     imgUrl: harleyquinn,
     borrowed_by: "",
-    time_remain: "",
+    time_remain: new Date("2024-07-30T08:30:00"),
     create_at: new Date(),
     update_at: new Date(),
   },
@@ -147,7 +148,7 @@ export const book: BookDataProps[] = [
     cover: onepiece,
     imgUrl: onepiece,
     borrowed_by: "",
-    time_remain: "",
+    time_remain: new Date("2024-09-01T12:00:00"),
     create_at: new Date(),
     update_at: new Date(),
   },
@@ -162,7 +163,7 @@ export const book: BookDataProps[] = [
     cover: jujutsukaisen,
     imgUrl: jujutsukaisen,
     borrowed_by: "",
-    time_remain: "",
+    time_remain: new Date("2024-08-05T14:20:00"),
     create_at: new Date(),
     update_at: new Date(),
   },
@@ -177,7 +178,7 @@ export const book: BookDataProps[] = [
     cover: Atomichabits,
     imgUrl: Atomichabits,
     borrowed_by: "",
-    time_remain: "",
+    time_remain: new Date("2024-08-12T15:50:00"),
     create_at: new Date(),
     update_at: new Date(),
   },
@@ -192,7 +193,7 @@ export const book: BookDataProps[] = [
     cover: bookofbill,
     imgUrl: bookofbill,
     borrowed_by: "",
-    time_remain: "",
+    time_remain: new Date("2024-08-25T09:45:00"),
     create_at: new Date(),
     update_at: new Date(),
   },
@@ -207,7 +208,7 @@ export const book: BookDataProps[] = [
     cover: youarehere,
     imgUrl: youarehere,
     borrowed_by: "",
-    time_remain: "",
+    time_remain: new Date("2024-09-10T11:15:00"),
     create_at: new Date(),
     update_at: new Date(),
   },

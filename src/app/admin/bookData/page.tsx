@@ -36,7 +36,7 @@ export default function BookData() {
   const bookStatusAvailable = book.filter((Book) => Book.status === "Available");
   const bookStatusBorrowed = book.filter((Book) => Book.status === "Borrowed");
 
-  const calculateTimeLeft = (targetDate: string) => {
+  const calculateTimeLeft = (targetDate: Date) => {
     const now = new Date();
     const target = new Date(targetDate);
     const diff = Math.max(target.getTime() - now.getTime(), 0);
@@ -50,7 +50,7 @@ export default function BookData() {
   useEffect(() => {
     const interval = setInterval(() => {
       const newTimeLeft: any = {};
-      filteredBook.forEach((b) => {
+      filteredBook.forEach((b: any) => {
         newTimeLeft[b.id] = calculateTimeLeft(b.time_remain);
       });
       setTimeLeft(newTimeLeft);
@@ -133,25 +133,20 @@ export default function BookData() {
             </thead>
             <tbody>
               {filteredBook.map((b, i) => {
-                const timeLeftForBook = timeLeft[b.id];
+                const timeLeftForBook = timeLeft ? timeLeft[b?.id] : timeLeft;
                 return (
                   <tr key={i} className="odd:bg-cyan-100 even:bg-sky-100 text-left">
-                    <th className="px-6 py-4 font-medium text-gray-900">{i + 1}</th>
-                    <th className="px-6 py-4 font-medium text-gray-900">{b.judul_buku}</th>
-                    <td className="px-6 py-4">{b.id}</td>
-                    <td className="px-6 py-4">{b.status}</td>
-                    <td className="px-6 py-4">{b.borrowed_by}</td>
-                    <td className="px-6 py-4">
-                      {timeLeftForBook?.days} Day {timeLeftForBook?.hours} Hour {timeLeftForBook?.minutes} Minutes {timeLeftForBook?.seconds} Second
-                    </td>
-                    <td className="px-6 py-4">{b.create_at.toDateString()}</td>
-                    <td className="px-6 py-4">{b.update_at.toDateString()}</td>
-                    <td className="px-6 py-4 flex gap-x-4 justify-center">
-                      <LinkButton href="#" variant="blue">
-                        View
-                      </LinkButton>
-                      <LinkButton href="#" variant="red">
-                        Delete
+                    <th className="px-6 py-3">{i + 1}</th>
+                    <td className="px-6 py-3">{b.judul_buku}</td>
+                    <td className="px-6 py-3">{b.id}</td>
+                    <td className="px-6 py-3">{b.status}</td>
+                    <td className="px-6 py-3">{b.borrowed_by}</td>
+                    <td className="px-6 py-3 text-center">{timeLeftForBook ? `${timeLeftForBook?.days}d ${timeLeftForBook?.hours}h ${timeLeftForBook?.minutes}m ${timeLeftForBook?.seconds}s` : "Calculating..."}</td>
+                    <td className="px-6 py-3">{b.create_at.toDateString()}</td>
+                    <td className="px-6 py-3">{b.update_at.toDateString()}</td>
+                    <td className="px-6 py-3 text-center">
+                      <LinkButton href={`/book/${b.id}`} variant="blue">
+                        Edit
                       </LinkButton>
                     </td>
                   </tr>
