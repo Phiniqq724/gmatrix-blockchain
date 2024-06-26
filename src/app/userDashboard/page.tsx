@@ -10,7 +10,7 @@ import BookCard, { BookCardProops } from "../components/Bookcard";
 import BatmanImage from "@/../public/assets/batman.png";
 import Flashimage from "@/../public/assets/flash.png";
 
-import { book, BookDataProps } from "@/utils/data";
+import { book } from "@/utils/data";
 
 export default function UserDashboard() {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -46,10 +46,10 @@ export default function UserDashboard() {
         </div>
         <div className="flex flex-col gap-6">
           <h1 className="font-bold text-center text-2xl">Popular Book</h1>
-          <BookCard cover={Flashimage} judul_buku="Flash" penerbit="Flash" className="" />
+          <BookCard cover={Flashimage} judul_buku="Flash" penerbit="Flash" className="" href={`/userBook/2`} />
         </div>
         {filteredBooks.map((book, index) => (
-          <BookCard key={index} cover={book.cover} judul_buku={book.judul_buku} penerbit={book.penerbit} />
+          <BookCard key={index} cover={book.cover} judul_buku={book.judul_buku} penerbit={book.penerbit} href={`/userBook/${book.id}`} />
         ))}
       </div>
     </main>
