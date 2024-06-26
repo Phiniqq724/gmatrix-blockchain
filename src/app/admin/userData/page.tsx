@@ -1,9 +1,10 @@
 "use client";
-import { LinkButton } from "@/app/components/Button";
-import React, { useState } from "react";
+import { FormButton, LinkButton } from "@/app/components/Button";
+import SearchBars from "@/app/components/Searchbar";
+import React, { useEffect, useState } from "react";
 
 interface userProops {
-  id: string;
+  id: number;
   name: string;
   username: string;
   email: string;
@@ -13,21 +14,21 @@ interface userProops {
 export default function UserData() {
   const user: userProops[] = [
     {
-      id: "1",
+      id: 1,
       name: "Naufal Nabil Ramadhan",
       username: "user.naufalnr",
       email: "naufalnr@gmail.com",
       status: "Authenticate",
     },
     {
-      id: "2",
+      id: 2,
       name: "Fahrell Sandy",
       username: "user.phiniqq",
       email: "phiniqq@gmail.com",
       status: "Onauthenticate",
     },
     {
-      id: "3",
+      id: 3,
       name: "Haza Nasrullah",
       username: "user.hazz",
       email: "hazz@gmail.com",
@@ -36,12 +37,33 @@ export default function UserData() {
   ];
 
   const [selected, setSelected] = useState("All");
+  const [searchInput, setSearchInput] = useState<string>("");
+  const [filteredUser, setFilteredUser] = useState<userProops[]>(user);
+
   function handleFilter(e: React.ChangeEvent<HTMLSelectElement>) {
     setSelected(e.target.value);
   }
+
+  useEffect(() => {
+    let filtered = user;
+
+    if (selected !== "All") {
+      filtered = filtered.filter((User) => User.status === selected);
+    }
+
+    if (searchInput) {
+      filtered = filtered.filter((User) => User.name.toLowerCase().includes(searchInput.toLowerCase()) || User.username.toLowerCase().includes(searchInput.toLowerCase()) || User.email.toLowerCase().includes(searchInput.toLowerCase()));
+    }
+
+    setFilteredUser(filtered);
+  }, [user, selected, searchInput]);
+
+  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(e.target.value);
+  };
+
   const userStatus = user.filter((User) => User.status === "Authenticate");
 
-  const filteredStatus = selected === "All" ? user : user.filter((User) => User.status === selected);
   return (
     <section className="max-w-screen-2xl h-full w-full">
       <div className="w-full flex mt-12 gap-x-4">
@@ -62,7 +84,11 @@ export default function UserData() {
           <div className=" relative right-0 top-0"></div>
         </div>
       </div>
-      <div id="filter" className="flex gap-x-4 justify-start mt-10">
+      <div className=" mt-10 flex items-center justify-start">
+        <SearchBars searchInput={searchInput} handleSearchInputChange={handleSearchInputChange} />
+        <FormButton variant="blue">Search</FormButton>
+      </div>
+      <div id="filter" className="flex gap-x-4 justify-start">
         <select name="status" id="status" onChange={handleFilter}>
           <option value="All">All</option>
           <option value="Authenticate">Authenticate</option>
@@ -95,7 +121,7 @@ export default function UserData() {
               </tr>
             </thead>
             <tbody>
-              {filteredStatus.map((u, i) => (
+              {filteredUser.map((u, i) => (
                 <tr key={i} className="odd:bg-cyan-100 even:bg-sky-100 text-left">
                   <th className="px-6 py-4 font-medium text-gray-900 ">{i + 1}</th>
                   <th className="px-6 py-4 font-medium text-gray-900 ">{u.name}</th>
