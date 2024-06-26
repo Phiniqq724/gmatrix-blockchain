@@ -1,59 +1,73 @@
 "use client";
 
-
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, useEffect } from "react";
 import Image from "next/image";
 import BookHeader from "@/../public/images/book1-banner.png";
 import SearchBars from "@/../src/app/components/Searchbar";
+import { FormButton, LinkButton } from "@/app/components/Button";
+import { book } from "@/utils/data";
 
 const UserBook = () => {
-
   const [searchInput, setSearchInput] = useState("");
 
   const handleSearchInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
   };
-  
+  useEffect(() => {}, []);
+  const bookData = book.find((b) => b.id);
+
   return (
-    <div className="min-h-screen flex flex-col">
-      <SearchBars
-        searchInput={searchInput}
-        handleSearchInputChange={handleSearchInputChange}
-      />
-      <div className="relative w-full">
-        <Image
-          src={BookHeader}
-          alt="Header"
-          width={9000}
-          className="object-cover"
-        />
-        <div className="absolute bottom-4 right-4 flex space-x-2">
-          <button className="bg-blue-700 text-white px-4 py-2 rounded">
-            Save to Favorite
-          </button>
-          <button className="bg-blue-700 text-white px-4 py-2 rounded">
-            Borrow
-          </button>
-        </div>
-        <div className="absolute top-2/4 left-12  text-white space-y-2">
-        <h2 className="text-4xl">Frank Miller</h2>
-          <h1 className="text-6xl font-bold">Batman: The Dark Knight</h1>
-          
+    <div className="flex w-full max-w-7xl flex-col mx-auto">
+      <div className="items-center flex ">
+        <SearchBars searchInput={searchInput} handleSearchInputChange={handleSearchInputChange} />
+        <FormButton variant="blue">Search</FormButton>
+      </div>
+
+      <div className="relative w-full flex items-center">
+        <Image src={bookData?.cover} alt="Header" width={400} className="object-cover mr-10" />
+        <div>
+          <div className="text-black space-y-2">
+            <h1 className="text-6xl font-semibold">{bookData?.judul_buku}</h1>
+            <h2 className="text-4xl">{bookData?.subtitle}</h2>
+            <p className="text-base">
+              <span className="font-normal">
+                <i>{bookData?.deskripsi}</i>
+              </span>
+            </p>
+            <div className="pt-6">
+              <p className="font-medium text-base">
+                Pengarang : <span className="font-normal">{bookData?.pengarang}</span>
+              </p>
+              <p className="font-medium text-base">
+                Penerbit : <span className="font-normal">{bookData?.penerbit}</span>
+              </p>
+              <p className="font-medium text-base">
+                Tahun Terbit : <span className="font-normal">{bookData?.tahun_terbit}</span>
+              </p>
+              <p className="font-medium text-base">
+                Status : <span className="font-normal">{bookData?.status}</span>
+              </p>
+              <p className="font-medium text-base">
+                Dipinjam Oleh : <span className="font-normal">{bookData?.borrowed_by}</span>
+              </p>
+              <p className="font-medium text-base">
+                Waktu Buku kembali : <span className="font-normal">{bookData?.time_remain.toLocaleDateString()}</span>
+              </p>
+              <p className="font-medium text-base">
+                Dibuat Pada : <span className="font-normal">{bookData?.create_at.toLocaleDateString()}</span>
+              </p>
+            </div>
+          </div>
+          <div className="space-x-2 my-6">
+            <FormButton variant="blue">Add to Favorite</FormButton>
+            <FormButton variant="blue">Borrow</FormButton>
+          </div>
         </div>
       </div>
-      <div className="mt-8 pr-5 text-2xl font-medium space-y-4 text-gray-700 text-justify">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. In enim massa, gravida eu mi et, faucibus varius nunc. Nullam laoreet ultricies turpis, in iaculis sem eleifend et. Maecenas eget facilisis ligula. Praesent sollicitudin, velit a venenatis tempus.
-          <br />
-          <br />
-          Purus lacus elementum elit, sed dignissim nisl enim ut mi. Suspendisse convallis purus erat. Aliquam eget orci dui.
-          <br />
-          <br />
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. In enim massa, gravida eu mi et, faucibus varius nunc. Nullam laoreet ultricies turpis, in iaculis sem eleifend et. Maecenas eget facilisis ligula. Praesent sollicitudin, velit a venenatis tempus.
-          <br />
-          <br />
-          Purus lacus elementum elit, sed dignissim nisl enim ut mi. Suspendisse convallis purus erat. Aliquam eget orci dui.
-        </p>
+      <div className="mt-8 pr-5 text-sm font-medium space-y-4 text-gray-700 text-justify">
+        <LinkButton href="/userDashboard" variant="blue">
+          Back to Dashboard
+        </LinkButton>
       </div>
     </div>
   );

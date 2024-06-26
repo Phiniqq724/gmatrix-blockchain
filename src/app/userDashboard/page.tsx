@@ -4,7 +4,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 
 import SearchBars from "@/app/components/Searchbar";
-import { LinkButton } from "../components/Button";
+import { FormButton, LinkButton } from "../components/Button";
 import BookCard, { BookCardProops } from "../components/Bookcard";
 
 import BatmanImage from "@/../public/assets/batman.png";
@@ -23,8 +23,9 @@ export default function UserDashboard() {
 
   return (
     <main className="w-full flex flex-col">
-      <div className="mx-auto">
+      <div className="mx-auto flex items-center">
         <SearchBars handleSearchInputChange={handleSearchInputChange} searchInput={searchTerm} />
+        <FormButton variant="blue">Search</FormButton>
       </div>
       <div className="grid grid-cols-4 gap-[60px] mx-auto">
         <div className="col-span-3 w-[620px] h-[400px] flex ">

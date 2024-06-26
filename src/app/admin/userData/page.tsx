@@ -98,9 +98,6 @@ export default function UserData() {
                   <td className="px-6 py-4">{u.email}</td>
                   <td className="px-6 py-4">{u.status}</td>
                   <td className="px-6 py-4 flex gap-x-4 justify-center">
-                    <LinkButton href={`userData/user/${u.id}`} variant="blue">
-                      View
-                    </LinkButton>
                     <LinkButton href="#" variant="red">
                       Delete
                     </LinkButton>
