@@ -1,11 +1,14 @@
 import { ChangeEvent } from "react";
 
 interface searchInputProops {
-  searchInput: string;
-  handleSearchInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  searchInput?: string;
+  handleSearchInputChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function SearchBars({ searchInput, handleSearchInputChange }: searchInputProops) {
+export default function SearchBars({
+  searchInput,
+  handleSearchInputChange,
+}: searchInputProops) {
   return (
     <main className="flex mr-4 h-[145px] items-center">
       <div className="">
