@@ -86,9 +86,16 @@ export default function BookData() {
           <div className="relative right-0 top-0"></div>
         </div>
       </div>
-      <div className="mt-10 flex items-center justify-start">
-        <SearchBars searchInput={searchInput} handleSearchInputChange={handleSearchInputChange} />
-        <FormButton variant="blue">Search</FormButton>
+      <div className="flex mt-10 items-center justify-between">
+        <div className="flex items-center justify-start">
+          <SearchBars searchInput={searchInput} handleSearchInputChange={handleSearchInputChange} />
+          <FormButton variant="blue">Search</FormButton>
+        </div>
+        <div>
+          <LinkButton href="/admin/addBooks" variant="blue" className="px-20">
+            Add Book
+          </LinkButton>
+        </div>
       </div>
       <div id="filter" className="flex gap-x-4 justify-start">
         <select name="status" id="status" onChange={handleFilter}>
@@ -144,9 +151,12 @@ export default function BookData() {
                     <td className="px-6 py-3 text-center">{timeLeftForBook ? `${timeLeftForBook?.days}d ${timeLeftForBook?.hours}h ${timeLeftForBook?.minutes}m ${timeLeftForBook?.seconds}s` : "Calculating..."}</td>
                     <td className="px-6 py-3">{b.create_at.toDateString()}</td>
                     <td className="px-6 py-3">{b.update_at.toDateString()}</td>
-                    <td className="px-6 py-3 text-center">
-                      <LinkButton href={`/book/${b.id}`} variant="blue">
+                    <td className="px-6 py-3 text-center flex gap-x-4 justify-center">
+                      <LinkButton href={`bookData/book/${b.id}`} variant="blue">
                         Edit
+                      </LinkButton>
+                      <LinkButton href="#" variant="red">
+                        Delete
                       </LinkButton>
                     </td>
                   </tr>

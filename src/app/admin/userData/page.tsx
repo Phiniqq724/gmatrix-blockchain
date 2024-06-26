@@ -1,41 +1,10 @@
 "use client";
 import { FormButton, LinkButton } from "@/app/components/Button";
 import SearchBars from "@/app/components/Searchbar";
+import { user, userProops } from "@/utils/data";
 import React, { useEffect, useState } from "react";
 
-interface userProops {
-  id: number;
-  name: string;
-  username: string;
-  email: string;
-  status: string;
-}
-
 export default function UserData() {
-  const user: userProops[] = [
-    {
-      id: 1,
-      name: "Naufal Nabil Ramadhan",
-      username: "user.naufalnr",
-      email: "naufalnr@gmail.com",
-      status: "Authenticate",
-    },
-    {
-      id: 2,
-      name: "Fahrell Sandy",
-      username: "user.phiniqq",
-      email: "phiniqq@gmail.com",
-      status: "Onauthenticate",
-    },
-    {
-      id: 3,
-      name: "Haza Nasrullah",
-      username: "user.hazz",
-      email: "hazz@gmail.com",
-      status: "Onauthenticate",
-    },
-  ];
-
   const [selected, setSelected] = useState("All");
   const [searchInput, setSearchInput] = useState<string>("");
   const [filteredUser, setFilteredUser] = useState<userProops[]>(user);
@@ -129,7 +98,7 @@ export default function UserData() {
                   <td className="px-6 py-4">{u.email}</td>
                   <td className="px-6 py-4">{u.status}</td>
                   <td className="px-6 py-4 flex gap-x-4 justify-center">
-                    <LinkButton href="#" variant="blue">
+                    <LinkButton href={`userData/user/${u.id}`} variant="blue">
                       View
                     </LinkButton>
                     <LinkButton href="#" variant="red">
