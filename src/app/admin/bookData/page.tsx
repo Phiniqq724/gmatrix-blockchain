@@ -153,7 +153,7 @@ export default function BookData() {
                     <td className="px-6 py-3">{b.update_at.toDateString()}</td>
                     <td className="px-6 py-3 text-center flex gap-x-4 justify-center">
                       <LinkButton href={`bookData/book/${b.id}`} variant="blue">
-                        Edit
+                        View
                       </LinkButton>
                       <LinkButton href="#" variant="red">
                         Delete
