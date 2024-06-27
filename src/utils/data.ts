@@ -19,7 +19,6 @@ export interface mainBookDataProops {
 }
 
 export interface BookDataProps extends mainBookDataProops {
-  id: number;
   status: "Available" | "Borrowed";
   imgUrl: StaticImageData | undefined | string | StaticImport | ReactElement | any;
   pengarang: string;
