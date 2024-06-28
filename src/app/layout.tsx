@@ -3,6 +3,7 @@ import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import localFont from "@next/font/local";
 import { AdminDisablePathName } from "@/lib/DisablePathName";
+import { Footer } from "../../components/footer";
 
 const open_sans = Open_Sans({ subsets: ["latin"] });
 
@@ -50,7 +51,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${open_sans.className} ${openSauce.variable} bg-sky-100 flex gap-x-6`}>
         <AdminDisablePathName />
-        {children}
+        <span className="w-full">
+          {children}
+          {/* <Footer /> */}
+        </span>
       </body>
     </html>
   );

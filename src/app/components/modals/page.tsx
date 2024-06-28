@@ -45,7 +45,7 @@ export default function Modal({ variants }: ModalProps) {
     return (
       <main className="w-full px-20 py-8 h-auto bg-white rounded-xl">
         <div className="mx-auto">
-          <h1 className="text-2xl font-bold text-center mt-4 text-black">Book {BookData?.id}</h1>
+          <h1 className="text-2xl font-bold text-center mt-4 text-black">Edit Book</h1>
           <FormComp label="Judul" type="text" variants="normal" value={BookData?.judul_buku} />
           <FormComp label="Pengarang" type="text" variants="normal" value={BookData?.pengarang} />
           <FormComp label="Penerbit" type="text" variants="normal" value={BookData?.penerbit} />

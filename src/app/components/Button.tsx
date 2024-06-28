@@ -43,7 +43,7 @@ export function LinkButton({ className, variant, children, href }: LinkButtonPro
 interface FormButtonProps extends ButtonProps {
   type?: "button" | "submit" | "reset" | undefined;
   disabled?: boolean;
-  onClick?: MouseEventHandler<HTMLButtonElement>;
+  onClick?: MouseEventHandler<HTMLButtonElement> | (() => Promise<void>) | (() => void);
 }
 
 export function FormButton({ className, variant, children, type, disabled, onClick }: FormButtonProps) {

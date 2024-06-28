@@ -9,7 +9,6 @@ import bookofbill from "@/../public/assets/bookofbill.jpg";
 import jujutsukaisen from "@/../public/assets/JujutsuKaisen.jpg";
 import onepiece from "@/../public/assets/onepiece.jpg";
 import youarehere from "@/../public/assets/youarehere.jpg";
-import BatmanImage from "@/../public/assets/batman.png";
 import Flashimage from "@/../public/assets/flash.png";
 
 export interface mainBookDataProops {
@@ -33,7 +32,6 @@ export interface BookDataProps extends mainBookDataProops {
 
 export const book: BookDataProps[] = [
   {
-    id: 1,
     judul_buku: "The Way Fyss",
     subtitle: "A Journey into the Unknown",
     status: "Borrowed",
@@ -49,7 +47,6 @@ export const book: BookDataProps[] = [
     update_at: new Date(),
   },
   {
-    id: 2,
     judul_buku: "The Way Fyss",
     subtitle: "A Journey into the Unknown",
     status: "Borrowed",
@@ -65,7 +62,6 @@ export const book: BookDataProps[] = [
     update_at: new Date(),
   },
   {
-    id: 3,
     judul_buku: "The Warden",
     subtitle: "Guardian of Secrets",
     status: "Borrowed",
@@ -81,7 +77,6 @@ export const book: BookDataProps[] = [
     update_at: new Date(),
   },
   {
-    id: 4,
     judul_buku: "Suicide Squad",
     subtitle: "Villains to Heroes",
     status: "Available",
@@ -97,7 +92,6 @@ export const book: BookDataProps[] = [
     update_at: new Date(),
   },
   {
-    id: 5,
     judul_buku: "Flash",
     subtitle: "The Fastest Man Alive",
     status: "Available",
@@ -113,7 +107,6 @@ export const book: BookDataProps[] = [
     update_at: new Date(),
   },
   {
-    id: 6,
     judul_buku: "Titans",
     subtitle: "Heroes in Training",
     status: "Available",
@@ -129,7 +122,6 @@ export const book: BookDataProps[] = [
     update_at: new Date(),
   },
   {
-    id: 7,
     judul_buku: "Harley Quinn",
     subtitle: "Mad Love",
     status: "Available",
@@ -145,7 +137,6 @@ export const book: BookDataProps[] = [
     update_at: new Date(),
   },
   {
-    id: 8,
     judul_buku: "One Piece",
     subtitle: "The Grand Adventure",
     status: "Available",
@@ -161,7 +152,6 @@ export const book: BookDataProps[] = [
     update_at: new Date(),
   },
   {
-    id: 9,
     judul_buku: "Jujutsu Kaisen Vol 1",
     subtitle: "Cursed Energy Unleashed",
     status: "Available",
@@ -177,7 +167,6 @@ export const book: BookDataProps[] = [
     update_at: new Date(),
   },
   {
-    id: 10,
     judul_buku: "Atomic Habits",
     subtitle: "Tiny Changes, Remarkable Results",
     status: "Available",
@@ -193,7 +182,6 @@ export const book: BookDataProps[] = [
     update_at: new Date(),
   },
   {
-    id: 11,
     judul_buku: "Book Of Bill",
     subtitle: "Mysteries of Gravity Falls",
     status: "Available",
@@ -209,7 +197,6 @@ export const book: BookDataProps[] = [
     update_at: new Date(),
   },
   {
-    id: 12,
     judul_buku: "You are Here",
     subtitle: "Finding Yourself",
     status: "Available",
@@ -227,7 +214,6 @@ export const book: BookDataProps[] = [
 ];
 
 export interface userProops {
-  id: number;
   name: string;
   username: string;
   email: string;
@@ -236,21 +222,18 @@ export interface userProops {
 
 export const user: userProops[] = [
   {
-    id: 1,
     name: "Naufal Nabil Ramadhan",
     username: "user.naufalnr",
     email: "naufalnr@gmail.com",
     status: "Authenticate",
   },
   {
-    id: 2,
     name: "Fahrell Sandy",
     username: "user.phiniqq",
     email: "phiniqq@gmail.com",
     status: "Onauthenticate",
   },
   {
-    id: 3,
     name: "Haza Nasrullah",
     username: "user.hazz",
     email: "hazz@gmail.com",
