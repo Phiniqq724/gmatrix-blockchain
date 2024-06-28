@@ -10,7 +10,7 @@ export default function UserProfile() {
         <div className="flex justify-between items-center">
           <div className="flex items-center  space-x-4">
             <Image
-            src={profilePic} // Replace with the actual path to the avatar image
+            src={profilePic}
             alt="User Avatar"
             className="w-36 h-36 rounded-full"
           />

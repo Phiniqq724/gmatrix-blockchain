@@ -1,4 +1,4 @@
-import {AuthContext} from '@/components/auth';
+import {AuthContext} from '../components/auth';
 import {Delete} from '@/components/delete';
 import type {Note, NoteData} from '@/types/note';
 import {listDocs} from '@junobuild/core-peer';

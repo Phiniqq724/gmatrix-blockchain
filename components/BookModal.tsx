@@ -1,6 +1,6 @@
-import {AuthContext} from '@/components/auth';
-import {Backdrop} from '@/components/backdrop';
-import {Button} from '@/components/button';
+import {AuthContext} from './auth';
+import {Backdrop} from './backdrop';
+import {Button} from './button';
 import {setDoc, uploadFile} from '@junobuild/core-peer';
 import {nanoid} from 'nanoid';
 import {useContext, useEffect, useRef, useState} from 'react';
@@ -25,7 +25,7 @@ export const Modal = () => {
   };
 
   const add = async () => {
-    // Demo purpose therefore edge case not properly handled
+
     if (user === undefined || user === null) {
       return;
     }
@@ -50,7 +50,7 @@ export const Modal = () => {
       const key = nanoid();
 
       await setDoc({
-        collection: 'notes',
+        collection: 'book',
         doc: {
           key,
           data: {
