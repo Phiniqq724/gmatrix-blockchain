@@ -3,6 +3,11 @@ import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import localFont from "@next/font/local";
 import { AdminDisablePathName } from "@/lib/DisablePathName";
+import AuthContextLayout from "@/lib/AuthContextLayout";
+import { FormButton } from "./components/Button";
+import { signIn, signOut } from "@junobuild/core-peer";
+import SignInButton from "./components/SignInButton";
+import SignOutButton from "./components/SignOutButton";
 
 const open_sans = Open_Sans({ subsets: ["latin"] });
 
@@ -45,12 +50,18 @@ export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>)
+
+{
   return (
     <html lang="en">
       <body className={`${open_sans.className} ${openSauce.variable} bg-sky-100 flex gap-x-6`}>
+      <AuthContextLayout signin={<SignInButton />}signout={<SignOutButton />} >
+        <div>
         <AdminDisablePathName />
         <span className="w-full">{children}</span>
+        </div>
+        </AuthContextLayout>
       </body>
     </html>
   );

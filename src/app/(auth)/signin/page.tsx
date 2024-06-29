@@ -6,8 +6,6 @@ import Link from "next/link";
 import React, { createContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../../components/auth";
 
-// export const AuthContext = createContext<{ user: User | undefined | null }>({ user: undefined });
-
 export default function UserSignin() {
   const [user, setUser] = useState<User | undefined | null>(undefined);
 

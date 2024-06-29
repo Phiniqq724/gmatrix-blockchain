@@ -7,7 +7,7 @@ import { Logout } from "./logout";
 export const AuthContext = createContext<{ user: User | undefined | null }>({ user: undefined });
 
 interface AuthProps {
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 export const Auth = ({ children }: AuthProps) => {
@@ -15,6 +15,7 @@ export const Auth = ({ children }: AuthProps) => {
 
   useEffect(() => {
     const sub = authSubscribe((user) => setUser(user));
+    
 
     return () => sub();
   }, []);
@@ -22,9 +23,9 @@ export const Auth = ({ children }: AuthProps) => {
   return (
     <AuthContext.Provider value={{ user }}>
       {user !== undefined && user !== null ? (
-        <div>
-          {children}
+        <div className="flex ">
           <Logout />
+          {children}
         </div>
       ) : (
         <Login />

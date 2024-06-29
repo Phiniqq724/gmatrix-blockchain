@@ -1,4 +1,3 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {};
+import {withJuno} from '@junobuild/nextjs-plugin';
 
-export default nextConfig;
+export default withJuno({juno: {container: true}});
