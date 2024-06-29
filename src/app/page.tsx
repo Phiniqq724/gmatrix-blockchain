@@ -1,5 +1,6 @@
-import React from "react";
+"use client"
+import { redirect } from "next/navigation";
 
 export default function Home() {
-  return <>hai</>;
+  redirect("/userDashboard");
 }
