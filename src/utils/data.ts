@@ -1,18 +1,23 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BookData } from "../../types/book";
 import { listDocs } from "@junobuild/core-peer";
 
-var book: BookData[] = [];
-useEffect(() => {
-    const items = await listDocs<BookData>({
-        collection: "Buku",
-        filter: {},
-    });
-    book = items;
-});
-export book;
+const DataComponent = () => {
+    const [book, setBook] = useState<BookData[]>([]);
+    
+    useEffect(() => {
+        const fetchData = async () => {
+            const items = await listDocs<BookData>({
+                collection: "Buku",
+                filter: {},
+            });
+            setBook(items);
+        };
+        
+        fetchData();
+    }, []);
 
+    
+};
 
-// ini mau bikin apa
-// ohh
-// manggil data dari datastore
+export default DataComponent;

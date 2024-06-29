@@ -9,17 +9,18 @@ import { book } from "@/utils/data";
 
 const UserBook = () => {
   const [searchInput, setSearchInput] = useState("");
+  const [BookDatas, setBookDatas] = usestate<BookData | null>(null)
 
   const handleSearchInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
   };
   useEffect(() => {}, []);
 
-  const getData = () => {
-    
+  const getData =  async() => {
+
   }
 
-  const bookData = book.find((b) => b.id);
+  const bookData = book.find((b) => b);
 
   return (
     <div className="flex w-full max-w-7xl flex-col mx-auto">
