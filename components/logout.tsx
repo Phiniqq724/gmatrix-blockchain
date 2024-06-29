@@ -1,3 +1,4 @@
+"use client"
 import { signOut } from "@junobuild/core-peer";
 
 export const Logout = () => {

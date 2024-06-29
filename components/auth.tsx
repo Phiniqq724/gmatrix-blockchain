@@ -1,3 +1,4 @@
+"use client"
 import { authSubscribe, type User } from "@junobuild/core-peer";
 import { createContext, useEffect, useState, type ReactNode } from "react";
 import { Login } from "./login";
