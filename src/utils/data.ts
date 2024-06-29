@@ -1,23 +1,23 @@
-import { useEffect, useState } from "react";
-import { BookData } from "../../types/book";
+"use client";
 import { listDocs } from "@junobuild/core-peer";
+import { Book } from "../../types/book";
 
-const DataComponent = () => {
-    const [book, setBook] = useState<BookData[]>([]);
-    
-    useEffect(() => {
-        const fetchData = async () => {
-            const items = await listDocs<BookData>({
-                collection: "Buku",
-                filter: {},
-            });
-            setBook(items);
-        };
-        
-        fetchData();
-    }, []);
-
-    
+export const GetAllBooks = async () => {
+  try {
+    const bookData = await listDocs<Book>({ collection: "Buku" });
+    return bookData;
+  } catch (error) {
+    console.error("Error fetching books:", error);
+    return [];
+  }
 };
 
-export default DataComponent;
+export const GetBook = async () => {
+  try {
+    const bookData = await listDocs<Book>({ collection: "Buku" });
+    return bookData;
+  } catch (error) {
+    console.error("Error fetching books:", error);
+    return;
+  }
+};

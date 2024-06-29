@@ -23,7 +23,6 @@ export const Auth = ({ children }: AuthProps) => {
       {user !== undefined && user !== null ? (
         <div>
           {children}
-
           <Logout />
         </div>
       ) : (

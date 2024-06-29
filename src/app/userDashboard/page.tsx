@@ -1,16 +1,16 @@
 "use client";
 
-import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchBars from "@/app/components/Searchbar";
-import { FormButton, LinkButton } from "../components/Button";
-import { Book, BookData } from "../../../types/book";
-import BookCard from "../components/Bookcard"
+import { FormButton } from "@/app/components/Button";
+
+import BookCard from "@/app/components/Bookcard";
 import { listDocs } from "@junobuild/core-peer";
+import { Book, BookData } from "../../../types/book";
 
 export default function UserDashboard() {
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [Books, setItems] = useState<BookData[]>([]);
+  const [Books, setBooks] = useState<Book[]>([]);
 
   const list = async () => {
     const { items } = await listDocs<Book>({
@@ -18,10 +18,14 @@ export default function UserDashboard() {
       filter: {},
     });
 
-    setItems(items);
+    setBooks(items.map((item) => item.data));
   };
 
-  const filteredBooks = Books.filter((Book) => Book.judul_buku.toLowerCase().includes(searchTerm.toLowerCase()));
+  useEffect(() => {
+    list();
+  }, []);
+
+  const filteredBooks = Books.filter((book) => book.data.judul_buku.toLowerCase().includes(searchTerm.toLowerCase()));
 
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
@@ -35,7 +39,21 @@ export default function UserDashboard() {
       </div>
       <div className="grid grid-cols-4 gap-[60px] mx-auto">
         {filteredBooks.map((book, index) => (
-          <BookCard key={index} cover={book.cover} judul_buku={book.judul_buku} penerbit={book.penerbit} borrowed_by={book.borrowed_by} deskripsi={book.deskripsi} imgUrl={book.imgUrl} last_time={book.last_time} pengarang={book.pengarang} status={book.status} subtitle={book.subtitle} tahun_terbit={book.tahun_terbit}  href={`/userBook/${book.slug}`}    />
+          <BookCard
+            key={index}
+            cover={book.data.cover}
+            judul_buku={book.data.judul_buku}
+            penerbit={book.data.penerbit}
+            borrowed_by={book.data.borrowed_by}
+            deskripsi={book.data.deskripsi}
+            imgUrl={book.data.imgUrl}
+            last_time={book.data.last_time}
+            pengarang={book.data.pengarang}
+            status={book.data.status}
+            subtitle={book.data.subtitle}
+            tahun_terbit={book.data.tahun_terbit}
+            href={`/userBook/${book.data.judul_buku}`}
+          />
         ))}
       </div>
     </main>

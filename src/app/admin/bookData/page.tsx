@@ -1,11 +1,10 @@
 "use client";
 import { FormButton, LinkButton } from "@/app/components/Button";
 import SearchBars from "@/app/components/Searchbar";
-import {book} from "@/utils/data";
 import { Book, BookData } from "../../../../types/book";
 import React, { useEffect, useState } from "react";
 import { Modal } from "../../../../components/BookModal";
-
+import { listDocs } from "@junobuild/core-peer";
 
 export default function TheBookData() {
   const [selected, setSelected] = useState("All");
@@ -13,30 +12,47 @@ export default function TheBookData() {
   const [filteredBook, setFilteredBook] = useState<Book[]>([]);
   const [timeLeft, setTimeLeft] = useState<Record<number, { days: number; hours: number; minutes: number; seconds: number }>>({});
 
+  const [Books, setBooks] = useState<Book[]>([]);
+
+  const list = async () => {
+    const { items } = await listDocs<Book>({
+      collection: "Buku",
+      filter: {},
+    });
+
+    setBooks(items.map((item) => item.data));
+  };
+
+  useEffect(() => {
+    list();
+  }, []);
+
+  const filteredBooks = Books.filter((book) => book.data.judul_buku.toLowerCase().includes(searchInput.toLowerCase()));
+
   const handleFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelected(e.target.value);
   };
 
-  useEffect(() => {
-    let filtered = book;
+  // useEffect(() => {
+  //   let filtered = book;
 
-    if (selected !== "All") {
-      filtered = filtered.filter((Book : BookData) => Book.status === selected);
-    }
+  //   if (selected !== "All") {
+  //     filtered = filtered.filter((Book: BookData) => Book.status === selected);
+  //   }
 
-    if (searchInput) {
-      filtered = filtered.filter((Book : BookData) => Book.judul_buku.toLowerCase().includes(searchInput.toLowerCase()));
-    }
+  //   if (searchInput) {
+  //     filtered = filtered.filter((Book: BookData) => Book.judul_buku.toLowerCase().includes(searchInput.toLowerCase()));
+  //   }
 
-    setFilteredBook(filtered);
-  }, [selected, searchInput]);
+  //   setFilteredBook(filtered);
+  // }, [selected, searchInput]);
 
-  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchInput(e.target.value);
-  };
+  // const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setSearchInput(e.target.value);
+  // };
 
-  const bookStatusAvailable = book.filter((Book : BookData) => Book.status === "Available");
-  const bookStatusBorrowed = book.filter((Book : BookData) => Book.status === "Borrowed");
+  // const bookStatusAvailable = book.filter((Book: BookData) => Book.status === "Available");
+  // const bookStatusBorrowed = book.filter((Book: BookData) => Book.status === "Borrowed");
 
   const calculateTimeLeft = (targetDate: Date) => {
     const now = new Date();
@@ -68,7 +84,7 @@ export default function TheBookData() {
       <div className="w-full flex mt-12 gap-x-4">
         <div className="inset-2 flex max-w-sm w-full justify-between rounded-md bg-transparent p-3 shadow-sm border border-[#4340DA]">
           <div className="block">
-            <p className="text-5xl font-medium tracking-wide text-gray-800 mb-1">{book.length}</p>
+            <p className="text-5xl font-medium tracking-wide text-gray-800 mb-1">5</p>
             <p className="text-base font-normal text-gray-800 mb-2">Books</p>
             <p className=" bottom-0 left-0 mt-10 font-inter text-xl font-semibold text-black">Total Books</p>
           </div>
@@ -76,7 +92,7 @@ export default function TheBookData() {
         </div>
         <div className="inset-2 flex max-w-sm w-full justify-between rounded-md bg-transparent p-3 shadow-sm border border-[#4340DA]">
           <div className="block">
-            <p className="text-5xl font-medium tracking-wide text-gray-800 mb-1">{bookStatusAvailable.length}</p>
+            <p className="text-5xl font-medium tracking-wide text-gray-800 mb-1">10</p>
             <p className="text-base font-normal text-gray-800 mb-2">Books</p>
             <p className=" bottom-0 left-0 mt-10 font-inter text-xl font-semibold text-black">Available Book</p>
           </div>
@@ -84,7 +100,7 @@ export default function TheBookData() {
         </div>
         <div className="inset-2 flex max-w-sm w-full justify-between rounded-md bg-transparent p-3 shadow-sm border border-[#4340DA]">
           <div className="block">
-            <p className="text-5xl font-medium tracking-wide text-gray-800 mb-1">{bookStatusBorrowed.length}</p>
+            <p className="text-5xl font-medium tracking-wide text-gray-800 mb-1">35</p>
             <p className="text-base font-normal text-gray-800 mb-2">Books</p>
             <p className=" bottom-0 left-0 mt-10 font-inter text-xl font-semibold text-black">Borrowed Book</p>
           </div>
@@ -93,7 +109,7 @@ export default function TheBookData() {
       </div>
       <div className="flex mt-10 items-center justify-between">
         <div className="flex items-center justify-start">
-          <SearchBars searchInput={searchInput} handleSearchInputChange={handleSearchInputChange} />
+          <SearchBars searchInput={searchInput} />
           <FormButton variant="blue">Search</FormButton>
         </div>
         <div></div>

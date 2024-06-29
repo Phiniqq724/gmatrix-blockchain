@@ -1,15 +1,24 @@
-"use client"
-import { FormButton } from '@/app/components/Button';
-import { FormComp, StatusDropdown } from '@/app/components/Form';
-import {AuthContext} from './auth';
-import {Backdrop} from './backdrop';
-import {setDoc, uploadFile} from '@junobuild/core-peer';
-import {nanoid} from 'nanoid';
-import {useContext, useEffect, useRef, useState} from 'react';
+"use client";
+import { FormButton } from "@/app/components/Button";
+import { FormComp, StatusDropdown } from "@/app/components/Form";
+import { AuthContext } from "./auth";
+import { Backdrop } from "./backdrop";
+import { setDoc, uploadFile } from "@junobuild/core-peer";
+import { nanoid } from "nanoid";
+import { Book, BookData } from "../types/book";
+import { ChangeEvent, useContext, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 export const Modal = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [inputText, setInputText] = useState("");
+  const [judul, setJudul] = useState("");
+  const [penerbit, setPenerbit] = useState("");
+  const [status, setStatus] = useState<BookData["status"]>("Available");
+  const [pengarang, setPengarang] = useState("");
+  const [subTitle, setSubtitle] = useState("");
+  const [borrowed_by, setBorrowed_by] = useState("");
+  const [tahun_terbit, setTahun_terbit] = useState("");
+  const [deskripsi, setDeskripsi] = useState("");
   const [valid, setValid] = useState(false);
   const [progress, setProgress] = useState(false);
   const [file, setFile] = useState<File | undefined>(undefined);
@@ -18,8 +27,8 @@ export const Modal = () => {
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    setValid(inputText !== "" && user !== undefined && user !== null);
-  }, [showModal, inputText, user]);
+    setValid(judul !== "" && user !== undefined && user !== null);
+  }, [showModal, judul, user]);
 
   const reload = () => {
     const event = new CustomEvent("reload");
@@ -27,7 +36,6 @@ export const Modal = () => {
   };
 
   const add = async () => {
-    // Demo purpose therefore edge case not properly handled
     if (user === undefined || user === null) {
       return;
     }
@@ -36,7 +44,6 @@ export const Modal = () => {
 
     try {
       let url;
-
       if (file !== undefined) {
         const filename = `${user.key}-${file.name}`;
 
@@ -45,25 +52,33 @@ export const Modal = () => {
           data: file,
           filename,
         });
-
         url = downloadUrl;
       }
 
       const key = nanoid();
+      const doc: Book = {
+        key: key,
+        data: {
+          judul_buku: judul,
+          penerbit: penerbit,
+          cover: url ?? "",
+          status: status,
+          imgUrl: url ? [url] : [],
+          pengarang: pengarang,
+          subtitle: subTitle,
+          borrowed_by: borrowed_by,
+          tahun_terbit: parseInt(tahun_terbit),
+          deskripsi: deskripsi,
+          last_time: new Date(),
+        },
+      };
 
       await setDoc({
-        collection: 'Buku',
-        doc: {
-          key: "buku-" + key,
-          data: {
-            text: inputText,
-            ...(url !== undefined && { url }),
-          },
-        },
+        collection: "Buku",
+        doc: doc,
       });
 
       setShowModal(false);
-
       reload();
     } catch (err) {
       console.error(err);
@@ -72,51 +87,47 @@ export const Modal = () => {
     setProgress(false);
   };
 
+  const [imgSrc, setImgSrc] = useState<string[]>([]);
+
+  const OnChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const files = Array.from(e.target.files);
+      files.forEach((file) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          setImgSrc((prev) => [...prev, reader.result as string]);
+        };
+        reader.onerror = () => console.log((reader.error as Error).message);
+      });
+    }
+  };
+
   return (
     <>
       <FormButton variant="blue" onClick={() => setShowModal(true)} className="flex items-center">
         Add Book
       </FormButton>
 
-      {showModal ? (
+      {showModal && (
         <>
           <section>
-            <div className="w-screen h-screen fixed top-0 left-0 right-0 bg-slate-500"></div>
+            {/* <div className="w-screen h-screen fixed top-0 left-0 right-0 bg-slate-500"></div> */}
             <div className="inset-0 z-10 p-16 animate-fade absolute" role="dialog">
               <div className="w-full max-w-7xl px-20 py-8 h-auto bg-white rounded-xl">
                 <main className="w-full px-6 py-8 h-auto bg-white rounded-xl">
                   <div className="">
                     <h1 className="text-2xl font-bold text-center mt-4">Add Book</h1>
-                    <FormComp
-                    onChange={(e) => {
-                      setInputText(e.target.value);
-                    }}
-                    value={inputText}
-                    label="Judul" type="text" variants="normal" />
-                    <FormComp
-                    onChange={(e) => {
-                      setInputText(e.target.value);
-                    }}
-                    value={inputText}
-                    label="Pengarang" type="text" variants="normal" />
-                    <FormComp
-                    onChange={(e) => {
-                      setInputText(e.target.value);
-                    }}
-                    value={inputText}
-                    label="Penerbit" type="text" variants="normal" />
-                    <FormComp
-                    onChange={(e) => {
-                      setInputText(e.target.value);
-                    }}
-                    value={inputText}
-                    label="Tahun Terbit" type="text" variants="normal" />
+                    <FormComp onChange={(e) => setJudul(e.target.value)} value={judul} label="Judul" type="text" variants="normal" />
+                    <FormComp onChange={(e) => setPengarang(e.target.value)} value={pengarang} label="Pengarang" type="text" variants="normal" />
+                    <FormComp onChange={(e) => setPenerbit(e.target.value)} value={penerbit} label="Penerbit" type="text" variants="normal" />
+                    <FormComp onChange={(e) => setTahun_terbit(e.target.value)} value={tahun_terbit} label="Tahun Terbit" type="text" variants="normal" />
                     <div className="my-4">
                       <label>Cover</label>
                       <button
                         aria-label="Attach a file to the entry"
                         onClick={() => uploadElement?.current?.click()}
-                        className="gap-2 items-center mt-2 bg-gray-50 border border-gray-600 focus:border-blue-600 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-primary-600 flex w-full p-2.5 "
+                        className="gap-2 items-center mt-2 bg-gray-50 border border-gray-600 focus:border-blue-600 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-primary-600 flex w-full p-2.5"
                       >
                         <svg width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29 29" fill="currentColor">
                           <g>
@@ -128,37 +139,14 @@ export const Modal = () => {
                           <small>{file !== undefined ? file.name : "Attach file"}</small>
                         </p>
                       </button>
-                      <input ref={uploadElement} type="file" className="fixed right-0 -bottom-24 opacity-0" onChange={(event) => setFile(event.target.files?.[0])} disabled={progress} />
+                      <input ref={uploadElement} type="file" onChange={OnChangeHandler} className="hidden" disabled={progress} />
+                      {imgSrc.map((link, i) => (
+                        <Image key={i} src={link} alt="Image" width={100} height={100} />
+                      ))}
                     </div>
-                    <StatusDropdown label="Status" />
-                    <FormComp
-                    onChange={(e) => {
-                      setInputText(e.target.value);
-                    }}
-                    value={inputText}
-                    label="Dipinjam Oleh" type="text" variants="normal" />
-                    <FormComp
-                    onChange={(e) => {
-                      setInputText(e.target.value);
-                    }}
-                    value={inputText}
-                    label="Waktu Pinjaman (Deadline)" type="Date" variants="normal" />
-                    <FormComp                     
-                    value={inputText}
-                    onChange={(e) => {
-                      setInputText(e.target.value);
-                    }} label="Cover" type="file" className="opacity-0" variants="normal" />
-                    <FormComp
-                      className=""
-                      variants="textarea"
-                      label="deskripsi"
-                      placeholder="Your diary entry"
-                      onChange={(e) => {
-                        setInputText(e.target.value);
-                      }}
-                      value={inputText}
-                      disabled={progress}
-                    ></FormComp>
+                    <StatusDropdown label="Status" onChange={(e) => setStatus(JSON.parse(e.target.value))} value={status} />
+                    <FormComp onChange={(e) => setBorrowed_by(e.target.value)} value={borrowed_by} label="Dipinjam Oleh" type="text" variants="normal" />
+                    <FormComp onChange={(e) => setDeskripsi(e.target.value)} value={deskripsi} label="Deskripsi" variants="textarea" placeholder="Your diary entry" disabled={progress} />
                     <div className="w-full flex justify-between my-4 gap-x-4">
                       <FormButton onClick={() => setShowModal(false)} variant="white" className="w-full">
                         Cancel
@@ -174,7 +162,7 @@ export const Modal = () => {
             <Backdrop />
           </section>
         </>
-      ) : null}
+      )}
     </>
   );
 };

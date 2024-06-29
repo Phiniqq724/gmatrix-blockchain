@@ -1,35 +1,44 @@
 import { deleteAsset, deleteDoc } from "@junobuild/core-peer";
 import { useState } from "react";
-import { Note } from "../types/note";
+import { Book } from "../types/book";
 import { Backdrop } from "./backdrop";
 
 interface DeleteProps {
-  item: Note;
+  item: Book;
   reload: () => Promise<void>;
 }
 
 export const Delete = ({ item, reload }: DeleteProps) => {
   const [inProgress, setInProgress] = useState(false);
 
-  const delItem = async (doc: Note) => {
+  const delItem = async (doc: Book) => {
     setInProgress(true);
 
     try {
       const {
-        data: { url },
+        data: { cover, imgUrl },
       } = doc;
 
-      if (url !== undefined) {
-        const { pathname: fullPath } = new URL(url);
+      if (cover !== undefined) {
+        const { pathname: fullPath } = new URL(cover);
 
         await deleteAsset({
           collection: "images",
           fullPath,
         });
       }
+      if (imgUrl !== undefined) {
+        for (var n = 0; n < imgUrl.length; n++) {
+          const { pathname: fullPath } = new URL(imgUrl[n]);
+          await deleteAsset({
+            collection: "images",
+            fullPath,
+          });
+        }
+      }
 
       await deleteDoc({
-        collection: "notes",
+        collection: "Buku",
         doc,
       });
 
