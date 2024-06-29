@@ -2,7 +2,6 @@
 import { FormComp, GenderDropdown, StatusDropdown } from "../Form";
 import { FormButton } from "../Button";
 import { useRouter } from "next/navigation";
-import { book } from "@/utils/data";
 
 interface ModalProps {
   variants: "borrow" | "editbook" | "addbook" | "editprofile";
@@ -15,8 +14,6 @@ export default function Modal({ variants }: ModalProps) {
   const editProfileVar = variants === "editprofile";
 
   const router = useRouter();
-
-  const BookData = book.find((b) => b.id);
 
   if (borrowVar) {
     return (
@@ -42,30 +39,30 @@ export default function Modal({ variants }: ModalProps) {
       </main>
     );
   } else if (editBookVar) {
-    return (
-      <main className="w-full px-20 py-8 h-auto bg-white rounded-xl">
-        <div className="mx-auto">
-          <h1 className="text-2xl font-bold text-center mt-4 text-black">Edit Book</h1>
-          <FormComp label="Judul" type="text" variants="normal" value={BookData?.judul_buku} />
-          <FormComp label="Pengarang" type="text" variants="normal" value={BookData?.pengarang} />
-          <FormComp label="Penerbit" type="text" variants="normal" value={BookData?.penerbit} />
-          <FormComp label="Tahun Terbit" type="text" variants="normal" value={BookData?.tahun_terbit} />
-          <StatusDropdown label="Status" value={BookData?.status} />
-          <FormComp label="Dipinjam Oleh" type="text" variants="normal" value={BookData?.borrowed_by} />
-          <FormComp label="Waktu Pinjaman (Deadline)" type="Date" variants="normal" value={BookData?.penerbit} />
-          {/* <FormComp label="Cover" type="file" variants="normal" value={BookData?.cover}  /> */}
-          <FormComp label="Deskripsi" type="text" variants="textarea" value={BookData?.deskripsi} />
-          <div className="w-full flex justify-between my-4 gap-x-4">
-            <FormButton onClick={() => router.back()} variant="white" className="w-full">
-              Cancel
-            </FormButton>
-            <FormButton variant="blue" className="w-full">
-              Save
-            </FormButton>
-          </div>
-        </div>
-      </main>
-    );
+    // return (
+    //   <main className="w-full px-20 py-8 h-auto bg-white rounded-xl">
+    //     <div className="mx-auto">
+    //       <h1 className="text-2xl font-bold text-center mt-4 text-black">Edit Book</h1>
+    //       <FormComp label="Judul" type="text" variants="normal" value={BookData?.judul_buku} />
+    //       <FormComp label="Pengarang" type="text" variants="normal" value={BookData?.pengarang} />
+    //       <FormComp label="Penerbit" type="text" variants="normal" value={BookData?.penerbit} />
+    //       <FormComp label="Tahun Terbit" type="text" variants="normal" value={BookData?.tahun_terbit} />
+    //       <StatusDropdown label="Status" value={BookData?.status} />
+    //       <FormComp label="Dipinjam Oleh" type="text" variants="normal" value={BookData?.borrowed_by} />
+    //       <FormComp label="Waktu Pinjaman (Deadline)" type="Date" variants="normal" value={BookData?.penerbit} />
+    //       {/* <FormComp label="Cover" type="file" variants="normal" value={BookData?.cover}  /> */}
+    //       <FormComp label="Deskripsi" type="text" variants="textarea" value={BookData?.deskripsi} />
+    //       <div className="w-full flex justify-between my-4 gap-x-4">
+    //         <FormButton onClick={() => router.back()} variant="white" className="w-full">
+    //           Cancel
+    //         </FormButton>
+    //         <FormButton variant="blue" className="w-full">
+    //           Save
+    //         </FormButton>
+    //       </div>
+    //     </div>
+    //   </main>
+    // );
   } else if (addBookVar) {
     return (
       <main className="w-full px-20 py-8 h-auto bg-white rounded-xl">

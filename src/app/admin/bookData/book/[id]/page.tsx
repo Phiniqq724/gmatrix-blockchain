@@ -1,4 +1,4 @@
-import Modal from "@/app/components/modals/page";
+import Modal from "@/app/components/modals/Modal";
 import React from "react";
 
 export default function DetailBook() {

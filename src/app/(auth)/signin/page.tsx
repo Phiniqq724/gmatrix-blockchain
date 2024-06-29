@@ -4,8 +4,9 @@ import TextInput from "@/app/components/InputText";
 import { authSubscribe, signIn, signOut, User } from "@junobuild/core-peer";
 import Link from "next/link";
 import React, { createContext, useEffect, useState } from "react";
+import { AuthContext } from "../../../../components/auth";
 
-export const AuthContext = createContext<{ user: User | undefined | null }>({ user: undefined });
+// export const AuthContext = createContext<{ user: User | undefined | null }>({ user: undefined });
 
 export default function UserSignin() {
   const [user, setUser] = useState<User | undefined | null>(undefined);
@@ -26,7 +27,7 @@ export default function UserSignin() {
               {user !== undefined && user !== null ? (
                 <div>
                   <FormButton type="button" onClick={signOut} className="w-full" variant="blue">
-                    Sign In
+                    Sign Out
                   </FormButton>
                 </div>
               ) : (
