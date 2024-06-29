@@ -1,12 +1,12 @@
 import {AuthContext} from '../components/auth';
 import {Delete} from './delete';
-import type {Note, NoteData} from '../types/note';
+import type {Book, BookData} from '../types/book';
 import {listDocs} from '@junobuild/core-peer';
 import {useContext, useEffect, useState} from 'react';
 
 export const Table = () => {
   const { user } = useContext(AuthContext);
-  const [items, setItems] = useState<Note[]>([]);
+  const [items, setItems] = useState<Book[]>([]);
 
   useEffect(() => {
     window.addEventListener("reload", list);
@@ -17,8 +17,8 @@ export const Table = () => {
   }, []);
 
   const list = async () => {
-    const { items } = await listDocs<NoteData>({
-      collection: "notes",
+    const { items } = await listDocs<BookData>({
+      collection: "Buku",
       filter: {},
     });
 

@@ -2,20 +2,26 @@
 
 import Image from "next/image";
 import React, { useState } from "react";
-
 import SearchBars from "@/app/components/Searchbar";
 import { FormButton, LinkButton } from "../components/Button";
-import BookCard, { BookCardProops } from "../components/Bookcard";
-
-import BatmanImage from "@/../public/assets/batman.png";
-import Flashimage from "@/../public/assets/flash.png";
-
-import { book } from "@/utils/data";
+import { Book, BookData } from "../../../types/book";
+import BookCard from "../components/Bookcard"
+import { listDocs } from "@junobuild/core-peer";
 
 export default function UserDashboard() {
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [Books, setItems] = useState<BookData[]>([]);
 
-  const filteredBooks = book.filter((Book) => Book.judul_buku.toLowerCase().includes(searchTerm.toLowerCase()));
+  const list = async () => {
+    const { items } = await listDocs<Book>({
+      collection: "Buku",
+      filter: {},
+    });
+
+    setItems(items);
+  };
+
+  const filteredBooks = Books.filter((Book) => Book.judul_buku.toLowerCase().includes(searchTerm.toLowerCase()));
 
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
@@ -28,29 +34,8 @@ export default function UserDashboard() {
         <FormButton variant="blue">Search</FormButton>
       </div>
       <div className="grid grid-cols-4 gap-[60px] mx-auto">
-        <div className="col-span-3 w-[620px] h-[400px] flex ">
-          <Image src={BatmanImage} alt="Batman" className="-z-10 absolute" />
-          <div className="text-white text-4xl items-end place-content-end p-[20px] flex justify-between w-full">
-            <div>
-              <h1 className="font-light">Frank Miller</h1>
-              <h1 className="font-bold">
-                BATMAN: <br />
-                THE DARK KNIGHT
-              </h1>
-            </div>
-            <div>
-              <LinkButton href="#" variant="blue" className="text-2xl rounded-xl">
-                See More!
-              </LinkButton>
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-col gap-6">
-          <h1 className="font-bold text-center text-2xl">Popular Book</h1>
-          <BookCard cover={Flashimage} judul_buku="Flash" penerbit="Flash" className="" href={`/userBook/2`} />
-        </div>
         {filteredBooks.map((book, index) => (
-          <BookCard key={index} cover={book.cover} judul_buku={book.judul_buku} penerbit={book.penerbit} href={`/userBook/${book.id}`} />
+          <BookCard key={index} cover={book.cover} judul_buku={book.judul_buku} penerbit={book.penerbit} borrowed_by={book.borrowed_by} deskripsi={book.deskripsi} imgUrl={book.imgUrl} last_time={book.last_time} pengarang={book.pengarang} status={book.status} subtitle={book.subtitle} tahun_terbit={book.tahun_terbit}  href={`/userBook/${book.slug}`}    />
         ))}
       </div>
     </main>

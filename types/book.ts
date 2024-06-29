@@ -1,8 +1,12 @@
 import type {Doc} from '@junobuild/core-peer';
 
-export default interface BookData {
+export interface BookData{
+  judul_buku: string;
+  slug?: string;
+  penerbit: string;
+  cover: string
   status: "Available" | "Borrowed";
-  imgUrl: string;
+  imgUrl: string[];
   pengarang: string;
   subtitle: string;
   borrowed_by: string;
@@ -10,12 +14,4 @@ export default interface BookData {
   deskripsi: string;
   last_time: Date;
 }
-
-export interface BookCoverData {
-    judul_buku: string;
-    penerbit: string;
-    cover: string;
-}
-
-export type Book = Doc<Book>;
-export type BookCover = Doc<BookCoverData>;
+export type Book = Doc<BookData>;

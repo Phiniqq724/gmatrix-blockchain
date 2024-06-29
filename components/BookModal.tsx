@@ -1,3 +1,4 @@
+"use client"
 import { FormButton } from '@/app/components/Button';
 import { FormComp, StatusDropdown } from '@/app/components/Form';
 import {AuthContext} from './auth';
@@ -51,9 +52,9 @@ export const Modal = () => {
       const key = nanoid();
 
       await setDoc({
-        collection: 'notes',
+        collection: 'Buku',
         doc: {
-          key,
+          key: "buku-" + key,
           data: {
             text: inputText,
             ...(url !== undefined && { url }),

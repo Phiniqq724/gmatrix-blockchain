@@ -1,15 +1,16 @@
 "use client";
 import { FormButton, LinkButton } from "@/app/components/Button";
 import SearchBars from "@/app/components/Searchbar";
-import { book, BookDataProps } from "@/utils/data";
-
+import {book} from "@/utils/data";
+import { Book, BookData } from "../../../../types/book";
 import React, { useEffect, useState } from "react";
-import { Modal } from "../../../../components/modal";
+import { Modal } from "../../../../components/BookModal";
 
-export default function BookData() {
+
+export default function TheBookData() {
   const [selected, setSelected] = useState("All");
   const [searchInput, setSearchInput] = useState<string>("");
-  const [filteredBook, setFilteredBook] = useState<BookDataProps[]>([]);
+  const [filteredBook, setFilteredBook] = useState<Book[]>([]);
   const [timeLeft, setTimeLeft] = useState<Record<number, { days: number; hours: number; minutes: number; seconds: number }>>({});
 
   const handleFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -20,11 +21,11 @@ export default function BookData() {
     let filtered = book;
 
     if (selected !== "All") {
-      filtered = filtered.filter((Book) => Book.status === selected);
+      filtered = filtered.filter((Book : BookData) => Book.status === selected);
     }
 
     if (searchInput) {
-      filtered = filtered.filter((Book) => Book.judul_buku.toLowerCase().includes(searchInput.toLowerCase()));
+      filtered = filtered.filter((Book : BookData) => Book.judul_buku.toLowerCase().includes(searchInput.toLowerCase()));
     }
 
     setFilteredBook(filtered);
@@ -34,8 +35,8 @@ export default function BookData() {
     setSearchInput(e.target.value);
   };
 
-  const bookStatusAvailable = book.filter((Book) => Book.status === "Available");
-  const bookStatusBorrowed = book.filter((Book) => Book.status === "Borrowed");
+  const bookStatusAvailable = book.filter((Book : BookData) => Book.status === "Available");
+  const bookStatusBorrowed = book.filter((Book : BookData) => Book.status === "Borrowed");
 
   const calculateTimeLeft = (targetDate: Date) => {
     const now = new Date();
@@ -52,7 +53,7 @@ export default function BookData() {
     const interval = setInterval(() => {
       const newTimeLeft: any = {};
       filteredBook.forEach((b: any) => {
-        newTimeLeft[b.id] = calculateTimeLeft(b.time_remain);
+        newTimeLeft[b.id] = calculateTimeLeft(b.last_time);
       });
       setTimeLeft(newTimeLeft);
     }, 1000);
@@ -141,14 +142,14 @@ export default function BookData() {
                 return (
                   <tr key={i} className="odd:bg-cyan-100 even:bg-sky-100 text-left">
                     <th className="px-6 py-3">{i + 1}</th>
-                    <td className="px-6 py-3">{b.judul_buku}</td>
-                    <td className="px-6 py-3">{b.status}</td>
-                    <td className="px-6 py-3">{b.borrowed_by}</td>
+                    <td className="px-6 py-3">{b.data.judul_buku}</td>
+                    <td className="px-6 py-3">{b.data.status}</td>
+                    <td className="px-6 py-3">{b.data.borrowed_by}</td>
                     <td className="px-6 py-3 text-center">{timeLeftForBook ? `${timeLeftForBook?.days}d ${timeLeftForBook?.hours}h ${timeLeftForBook?.minutes}m ${timeLeftForBook?.seconds}s` : "Calculating..."}</td>
-                    <td className="px-6 py-3">{b.create_at.toDateString()}</td>
-                    <td className="px-6 py-3">{b.update_at.toDateString()}</td>
+                    <td className="px-6 py-3">{b.created_at}</td>
+                    <td className="px-6 py-3">{b.updated_at}</td>
                     <td className="px-6 py-3 text-center flex gap-x-4 justify-center">
-                      <LinkButton href={`bookData/book/${b.judul_buku}`} variant="blue">
+                      <LinkButton href={`bookData/book/${b.data.judul_buku}`} variant="blue">
                         View
                       </LinkButton>
                       <LinkButton href="#" variant="red">

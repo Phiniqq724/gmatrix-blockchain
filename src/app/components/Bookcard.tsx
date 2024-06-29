@@ -1,13 +1,12 @@
-import { BookDataProps, mainBookDataProops } from "@/utils/data";
+import { Book, BookData } from "../../../types/book";
 import {
   StaticImageData,
   StaticImport,
 } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 import Link from "next/link";
-import { ReactElement } from "react";
 
-export interface BookCardProops extends mainBookDataProops {
+export interface BookCardProops extends BookData {
   className?: string;
   href?: string;
 }
