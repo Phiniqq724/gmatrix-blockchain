@@ -4,6 +4,7 @@ import SearchBars from "@/app/components/Searchbar";
 import { book, BookDataProps } from "@/utils/data";
 
 import React, { useEffect, useState } from "react";
+import { Modal } from "../../../../components/modal";
 
 export default function BookData() {
   const [selected, setSelected] = useState("All");
@@ -60,30 +61,33 @@ export default function BookData() {
 
   return (
     <section className="max-w-screen-2xl h-full w-full">
+      <div className="mt-5">
+        <Modal />
+      </div>
       <div className="w-full flex mt-12 gap-x-4">
         <div className="inset-2 flex max-w-sm w-full justify-between rounded-md bg-transparent p-3 shadow-sm border border-[#4340DA]">
           <div className="block">
             <p className="text-5xl font-medium tracking-wide text-gray-800 mb-1">{book.length}</p>
             <p className="text-base font-normal text-gray-800 mb-2">Books</p>
-            <p className="relative bottom-0 left-0 mt-10 font-inter text-xl font-semibold text-black">Total Books</p>
+            <p className=" bottom-0 left-0 mt-10 font-inter text-xl font-semibold text-black">Total Books</p>
           </div>
-          <div className="relative right-0 top-0"></div>
+          <div className=" right-0 top-0"></div>
         </div>
         <div className="inset-2 flex max-w-sm w-full justify-between rounded-md bg-transparent p-3 shadow-sm border border-[#4340DA]">
           <div className="block">
             <p className="text-5xl font-medium tracking-wide text-gray-800 mb-1">{bookStatusAvailable.length}</p>
             <p className="text-base font-normal text-gray-800 mb-2">Books</p>
-            <p className="relative bottom-0 left-0 mt-10 font-inter text-xl font-semibold text-black">Available Book</p>
+            <p className=" bottom-0 left-0 mt-10 font-inter text-xl font-semibold text-black">Available Book</p>
           </div>
-          <div className="relative right-0 top-0"></div>
+          <div className=" right-0 top-0"></div>
         </div>
         <div className="inset-2 flex max-w-sm w-full justify-between rounded-md bg-transparent p-3 shadow-sm border border-[#4340DA]">
           <div className="block">
             <p className="text-5xl font-medium tracking-wide text-gray-800 mb-1">{bookStatusBorrowed.length}</p>
             <p className="text-base font-normal text-gray-800 mb-2">Books</p>
-            <p className="relative bottom-0 left-0 mt-10 font-inter text-xl font-semibold text-black">Borrowed Book</p>
+            <p className=" bottom-0 left-0 mt-10 font-inter text-xl font-semibold text-black">Borrowed Book</p>
           </div>
-          <div className="relative right-0 top-0"></div>
+          <div className=" right-0 top-0"></div>
         </div>
       </div>
       <div className="flex mt-10 items-center justify-between">
@@ -91,11 +95,7 @@ export default function BookData() {
           <SearchBars searchInput={searchInput} handleSearchInputChange={handleSearchInputChange} />
           <FormButton variant="blue">Search</FormButton>
         </div>
-        <div>
-          <LinkButton href="/admin/addBooks" variant="blue" className="px-20">
-            Add Book
-          </LinkButton>
-        </div>
+        <div></div>
       </div>
       <div id="filter" className="flex gap-x-4 justify-start">
         <select name="status" id="status" onChange={handleFilter}>
@@ -105,7 +105,7 @@ export default function BookData() {
         </select>
       </div>
       <div className="w-full">
-        <div className="relative rounded-lg border-2 border-white mt-4">
+        <div className=" rounded-lg border-2 border-white mt-4">
           <table className="w-full text-sm text-start rounded-lg text-gray-600">
             <thead className="text-sm text-left text-white rounded-lg bg-[#4340DA]">
               <tr>
@@ -114,9 +114,6 @@ export default function BookData() {
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Judul Buku
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  id Buku
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Status
@@ -140,19 +137,18 @@ export default function BookData() {
             </thead>
             <tbody>
               {filteredBook.map((b, i) => {
-                const timeLeftForBook = timeLeft ? timeLeft[b?.id] : timeLeft;
+                const timeLeftForBook = timeLeft ? timeLeft[i] : timeLeft;
                 return (
                   <tr key={i} className="odd:bg-cyan-100 even:bg-sky-100 text-left">
                     <th className="px-6 py-3">{i + 1}</th>
                     <td className="px-6 py-3">{b.judul_buku}</td>
-                    <td className="px-6 py-3">{b.id}</td>
                     <td className="px-6 py-3">{b.status}</td>
                     <td className="px-6 py-3">{b.borrowed_by}</td>
                     <td className="px-6 py-3 text-center">{timeLeftForBook ? `${timeLeftForBook?.days}d ${timeLeftForBook?.hours}h ${timeLeftForBook?.minutes}m ${timeLeftForBook?.seconds}s` : "Calculating..."}</td>
                     <td className="px-6 py-3">{b.create_at.toDateString()}</td>
                     <td className="px-6 py-3">{b.update_at.toDateString()}</td>
                     <td className="px-6 py-3 text-center flex gap-x-4 justify-center">
-                      <LinkButton href={`bookData/book/${b.id}`} variant="blue">
+                      <LinkButton href={`bookData/book/${b.judul_buku}`} variant="blue">
                         View
                       </LinkButton>
                       <LinkButton href="#" variant="red">

@@ -3,7 +3,7 @@ import React from "react";
 
 interface FormProps {
   label: React.ReactNode;
-  type: string;
+  type?: string;
   variants: "normal" | "textarea";
   placeholder?: string;
   value?: string | number | any;
@@ -12,6 +12,7 @@ interface FormProps {
   className?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   readOnly?: boolean;
+  disabled?: boolean;
 }
 
 interface DropdownProps {
@@ -22,7 +23,7 @@ interface DropdownProps {
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
-export function FormComp({ label, type, variants, placeholder, value, title, required, className, onChange, readOnly }: FormProps) {
+export function FormComp({ label, type, variants, placeholder, value, title, required, className, onChange, readOnly, disabled = false }: FormProps) {
   const inputVar = variants === "normal";
   const textVar = variants === "textarea";
   if (inputVar) {
@@ -33,6 +34,7 @@ export function FormComp({ label, type, variants, placeholder, value, title, req
           type={type}
           title={title}
           value={value}
+          disabled={disabled}
           placeholder={placeholder}
           onChange={onChange}
           className={`bg-gray-50 border border-gray-600 focus:border-blue-600 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-primary-600 block w-full p-2.5  ${className}`}
