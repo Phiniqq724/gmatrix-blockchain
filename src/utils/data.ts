@@ -1,18 +1,23 @@
-import { useEffect } from "react";
-import { BookData } from "../../types/book";
+"use client";
 import { listDocs } from "@junobuild/core-peer";
+import { Book } from "../../types/book";
 
-var book: BookData[] = [];
-useEffect(() => {
-    const items = await listDocs<BookData>({
-        collection: "Buku",
-        filter: {},
-    });
-    book = items;
-});
-export book;
+export const GetAllBooks = async () => {
+  try {
+    const bookData = await listDocs<Book>({ collection: "Buku" });
+    return bookData;
+  } catch (error) {
+    console.error("Error fetching books:", error);
+    return [];
+  }
+};
 
-
-// ini mau bikin apa
-// ohh
-// manggil data dari datastore
+export const GetBook = async () => {
+  try {
+    const bookData = await listDocs<Book>({ collection: "Buku" });
+    return bookData;
+  } catch (error) {
+    console.error("Error fetching books:", error);
+    return;
+  }
+};
